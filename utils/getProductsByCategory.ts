@@ -1,3 +1,5 @@
+'use server';
+
 import { Product } from '@/types/types';
 import { productsFakeStore, productsDummyJSON } from './getProducts';
 
@@ -17,7 +19,7 @@ const catFakeStore = ['jewelery', "men's clothing", "women's clothing"];
 const WomensCategories = ['Clothing', 'Shoes', 'Bags', 'Watches and Jeweley'];
 const MensCategories = ['Clothing', 'Shoes', 'Accessories'];
 
-export const womensClothes = async () => {
+export const getWomensClothes = async () => {
   const womensClothing: Product[] = [];
 
   try {
@@ -32,7 +34,7 @@ export const womensClothes = async () => {
   return womensClothing;
 };
 
-export const mensClothes = async () => {
+export const getMensClothes = async () => {
   const mensClothing: Product[] = [];
 
   try {
@@ -47,7 +49,7 @@ export const mensClothes = async () => {
   return mensClothing;
 };
 
-export const shoes = async () => {
+export const getShoes = async () => {
   const shoes: Product[] = [];
 
   try {
@@ -62,7 +64,7 @@ export const shoes = async () => {
   return shoes;
 };
 
-export const accessories = async () => {
+export const getAccessories = async () => {
   const accessories: Product[] = [];
 
   try {
@@ -84,4 +86,35 @@ export const accessories = async () => {
     console.log("Error - Couldn't fetch data from API");
   }
   return accessories;
+};
+
+export const fetchProducts = async () => {
+  const womensClothes: Product[] = await getWomensClothes();
+  const mensClothes: Product[] = await getMensClothes();
+  const shoes: Product[] = await getShoes();
+
+  const womensShoes = shoes.filter(
+    (product) => product.category === 'womens-shoes',
+  );
+  const mensShoes = shoes.filter(
+    (product) => product.category === 'mens-shoes',
+  );
+  const accesories: Product[] = await getWomensClothes();
+  const womensAccesories = accesories.filter((product) =>
+    ['womens-bags', 'womens-jewelley', 'womens-watches', 'jewelery'].includes(
+      product.category,
+    ),
+  );
+  const mensAccesories = accesories.filter(
+    (product) => product.category === 'mens-watches',
+  );
+
+  const womensProducts = [
+    ...womensClothes,
+    ...womensShoes,
+    ...womensAccesories,
+  ];
+  const mensProducts = [...mensClothes, ...mensShoes, ...mensAccesories];
+
+  return { womensProducts, mensProducts };
 };
