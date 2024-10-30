@@ -4,6 +4,7 @@ import {
   getMensClothes,
   getShoes,
   getWomensClothes,
+  getAccessories,
 } from '@/utils/getProductsByCategory';
 import { Product } from '@/types/types';
 import ProductCard from './ProductCard';
@@ -12,6 +13,7 @@ const ProductListServer = async () => {
   const womensClothes: Product[] = await getWomensClothes();
   const mensClothes: Product[] = await getMensClothes();
   const shoes: Product[] = await getShoes();
+  const accesories: Product[] = await getAccessories();
 
   const womensShoes = shoes.filter(
     (product) => product.category === 'womens-shoes',
@@ -19,9 +21,11 @@ const ProductListServer = async () => {
   const mensShoes = shoes.filter(
     (product) => product.category === 'mens-shoes',
   );
-  const accesories: Product[] = await getWomensClothes();
+  const womensBags = accesories.filter((product) =>
+    ['womens-bags'].includes(product.category),
+  );
   const womensAccesories = accesories.filter((product) =>
-    ['womens-bags', 'womens-jewelley', 'womens-watches', 'jewelery'].includes(
+    ['womens-jewelley', 'womens-watches', 'jewelery'].includes(
       product.category,
     ),
   );
@@ -32,6 +36,7 @@ const ProductListServer = async () => {
   const womensProducts = [
     ...womensClothes,
     ...womensShoes,
+    ...womensBags,
     ...womensAccesories,
   ];
   const mensProducts = [...mensClothes, ...mensShoes, ...mensAccesories];

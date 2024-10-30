@@ -1,15 +1,18 @@
 'use client';
 
-import CategoriesList from '@/components/CategoriesList';
+import SubCategoriesList from './SubCategoriesList';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
-import { Card } from '@nextui-org/react';
+import { Button, Card } from '@nextui-org/react';
 import { useRef } from 'react';
+import { useCategory } from '@/app/_providers/CategoryProvider';
 
 const ScrollableCategoriesList = () => {
+  const { selectedCategory, selectCat } = useCategory();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
+    console.log(scrollRef.current);
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
     }
@@ -33,15 +36,35 @@ const ScrollableCategoriesList = () => {
       </div>
       <Card
         radius="none"
-        className="py-[2rem] relative bg-background "
+        className=" relative bg-background "
         style={{ width: `calc(100% - 9rem)` }}
       >
-        <div className="flex justify-center px-4">
+        <div className="w-full flex justify-between mb-5 outline outline-1 outline-background shadow-md">
+          <Button
+            onClick={() => selectCat('woman')}
+            className={`outline outline-1 outline-shadeBackground text-[1rem] h-[45px] w-[200px] rounded-none flex-grow ${selectedCategory === 'woman' ? 'bg-shadeBackground' : 'bg-transparent'}`}
+          >
+            Woman
+          </Button>
+          <Button
+            onClick={() => selectCat('man')}
+            className={`outline outline-1 outline-shadeBackground text-[1rem] h-[45px] w-[200px] rounded-none flex-grow ${selectedCategory === 'man' ? 'bg-shadeBackground' : 'bg-transparent'}`}
+          >
+            Man
+          </Button>
+          <Button
+            onClick={() => selectCat('fragances')}
+            className={`outline outline-1 outline-shadeBackground text-[1rem] h-[45px] w-[200px] rounded-none flex-grow ${selectedCategory === 'fragances' ? 'bg-shadeBackground' : 'bg-transparent'}`}
+          >
+            Fragances
+          </Button>
+        </div>
+        <div className="flex justify-center px-4 mb-5 ">
           <div
             ref={scrollRef}
             className="overflow-x-hidden whitespace-nowrap scroll-smooth scrollbar-hide "
           >
-            <CategoriesList />
+            <SubCategoriesList />
           </div>
         </div>
       </Card>

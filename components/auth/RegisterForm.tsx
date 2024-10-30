@@ -45,7 +45,7 @@ const RegisterForm = () => {
   return (
     <form
       action={action}
-      className="bg-white border border-0.5 shadow-lg rounded-lg p-10 flex flex-col justify-center justify-center items-center"
+      className="bg-white border border-0.5 shadow-lg rounded-lg p-10 flex flex-col justify-center items-center"
     >
       <h3 className="mb-3 text-2xl font-bold">Sign up</h3>
       <Input
