@@ -12,6 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         background: '#ededed',
+        shadeBackground: '#d5d5d5',
         foreground: '#171717',
         silver: '#CCCCCC',
         whiteSmoke: '#F2F2F2',
