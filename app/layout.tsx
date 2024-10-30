@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import NavBar from '@/components/NavBar';
-import UIProviders from './NextUIProvider';
+import AllProviders from './_providers/AllProviders';
 import Footer from '@/components/Footer';
 
 const lato = localFont({
@@ -24,11 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.variable} antialiased text-foreground bg-white`}>
-        <UIProviders>
+        <AllProviders>
           <NavBar />
           {children}
           <Footer />
-        </UIProviders>
+        </AllProviders>
       </body>
     </html>
   );
